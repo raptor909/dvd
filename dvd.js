@@ -8,15 +8,15 @@ export class DVD {
         this.x = this.canvas.width/2;
         this.y = this.canvas.height/2;
         this.velocity = {
-            x: 0.5,
-            y: 0.5
+            x: 1,
+            y: 1
         }
         this.url = url;
         this.img = new Image();
         this.img.src = url;
         this.img.onload = () => {
             this.aspRatio = this.img.width / this.img.height;
-            this.img.width = 200;
+            this.img.width = this.canvas.width/10;
             this.img.height = this.img.width / this.aspRatio;
             this.width = this.img.width;
             this.height = this.img.height;
@@ -35,6 +35,7 @@ export class DVD {
         this.ctx.stroke();
     }
     update() {
+        this.lastFrameCollision = this.collision;
         this.collisionsPerFrame = 0;
         if (this.x+this.width > this.canvas.width) {
             this.x = this.canvas.width-this.width;
@@ -56,7 +57,7 @@ export class DVD {
             this.velocity.y *= -1;
             this.collisionsPerFrame++;
         }
-        if (this.collisionsPerFrame > 1) {
+        if (this.collisionsPerFrame > 1 || this.lastFrameCollision > 0) {
             console.log('corner collision');
             this.cornerCollisions++;
         }
