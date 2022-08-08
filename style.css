@@ -6,4 +6,5 @@
 
 #screen {
     display: block;
+    overflow: hidden;
 }
